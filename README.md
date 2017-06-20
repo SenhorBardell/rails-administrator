@@ -1,24 +1,4 @@
-# README
+# Rails administrator sample app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![Build status](https://circleci.com/gh/SenhorBardell/rails-administrator.png?circle-token=84e4da8f366dba5a215c033aeb527a3e58e4335b)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
