@@ -1,0 +1,9 @@
+{
+  "name": "Rails administrator app sample",
+  "description": "Simple administration console written on latest technologies as a sample project.",
+  "repository": "https://github.com/SenhorBardell/rails-administrator",
+  "logo": "https://achievement-images.teamtreehouse.com/badges_SimpleFacebook_Stage1.png",
+  "addons": [{
+    "plan": "heroku-postgresql"
+  }]
+}
