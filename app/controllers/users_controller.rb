@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate, except: [:create]
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :email, :update, :destroy]
 
   # GET /users
   def index
@@ -23,6 +23,11 @@ class UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  # POST /users/1/email
+  def email
+    ApplicationMailer.user_email(@user, params[:email]).deliver_later
   end
 
   # PATCH/PUT /users/1
