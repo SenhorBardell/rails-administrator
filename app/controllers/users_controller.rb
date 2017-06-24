@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :login, :update, :destroy]
+  before_action :authenticate, except: [:create]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
   def index
@@ -39,13 +40,27 @@ class UsersController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
+
+    render status: :not_found unless @user.present?
   end
 
-  # Only allow a trusted parameter "white list" through.
+  def authenticate
+    @authorized_user = authenticate_token || render_unauthorized
+  end
+
+  def authenticate_token
+    authenticate_with_http_token do |token|
+      User.find_by_token token
+    end
+  end
+
+  def render_unauthorized
+    render status: :unauthorized
+  end
+
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :bio, :birth_date)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :bio, :birth_date)
   end
 end
