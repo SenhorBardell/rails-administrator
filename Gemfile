@@ -17,6 +17,7 @@ gem 'redis', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-heroku'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
