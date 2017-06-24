@@ -17,7 +17,6 @@ gem 'redis', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-heroku'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -40,6 +39,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'wkhtmltopdf-heroku'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
