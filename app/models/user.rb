@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_secure_token
   before_create :generate_token
 
-  # TODO validation
+  validates :email, :password, presence: true
 
   def generate_token
     self.token = SecureToken.generate_unique_secure_token unless token.present?
