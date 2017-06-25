@@ -1,19 +1,22 @@
 class User < ApplicationRecord
   has_secure_password
   has_secure_token
+
   has_and_belongs_to_many :roles
-  before_create :generate_token
+
   after_create :attach_role
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, presence: true
   validates :password, presence: true, on: create
+
+  scope :short, -> {select %w(id first_name last_name)}
 
   def is_admin?
     self.roles.exists? 1 # admin
   end
 
   def generate_token
-    self.token = SecureToken.generate_unique_secure_token unless token.present?
+    self.update_attribute(:token, self.class.generate_unique_secure_token)
   end
 
   def attach_role

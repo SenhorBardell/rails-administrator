@@ -30,4 +30,5 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  auth: 'User name or password are invalid'
   hello: "Hello world"

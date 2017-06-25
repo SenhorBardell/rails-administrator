@@ -18,8 +18,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
               birth_date: @user.birth_date,
               first_name: @user.first_name,
               last_name: @user.last_name,
+              email: @user.email,
               password: @user.password_digest,
-              password_confirmation: @user.password_digest
           }
       }, as: :json
     end
@@ -34,6 +34,20 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             birth_date: @user.birth_date,
             first_name: @user.first_name,
             last_name: @user.last_name
+        }
+    }, as: :json
+
+    assert_response 422
+  end
+
+  test 'should not create user – email not filled' do
+    post users_url, params: {
+        user: {
+            bio: @user.bio,
+            birth_date: @user.birth_date,
+            first_name: @user.first_name,
+            last_name: @user.last_name,
+            password: @user.password_digest
         }
     }, as: :json
 

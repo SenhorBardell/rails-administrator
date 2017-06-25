@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  before_action :authenticate, except: [:create]
+  before_action :authenticate, except: [:create, :auth]
   before_action :set_user, only: [:show, :email, :update, :destroy]
 
   # GET /users
   def index
-    @users = User.all
+    @users = User.short
 
     render json: @users
   end
@@ -19,15 +19,25 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: {id: @user.id, token: @user.token}, status: :created, location: @user
+      render json: {id: @user.id, token: @user.token, roles: @user.roles.map(&:name)}, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 
   # POST /users/1/email
   def email
     ApplicationMailer.user_email(@user, params[:email]).deliver_later
+  end
+
+  def auth
+    @user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
+
+    if @user
+      render json: {id: @user.id, token: @user.token, roles: @user.roles.map(&:name)}
+    else
+      render json: {errors: {email: ['User name or password are invalid']}}, status: :unauthorized
+    end
   end
 
   # PATCH/PUT /users/1
