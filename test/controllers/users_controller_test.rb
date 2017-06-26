@@ -18,7 +18,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
               birth_date: @user.birth_date,
               first_name: @user.first_name,
               last_name: @user.last_name,
-              email: @user.email,
+              email: "#{@user.email}1",
               password: @user.password_digest,
           }
       }, as: :json
