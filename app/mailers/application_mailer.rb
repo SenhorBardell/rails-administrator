@@ -8,7 +8,7 @@ class ApplicationMailer < ActionMailer::Base
     else
       pdf = ActionController::Base.render pdf: 'temp', template: 'templates/user.pdf.erb', locals: {user: user}
       attachments["#{user.first_name} #{user.last_name}.pdf"] = pdf
-      mail to: email, subject: "User #{user.first_name} #{user.last_name} details"
+      mail to: email, subject: 'Test task rockstar software engineer'
     end
   end
 end
